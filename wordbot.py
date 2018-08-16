@@ -1,40 +1,50 @@
 import asyncio      
 import discord
 from discord.ext import commands
-token = "NDc5MTA5NTA5MTU2MDQ0ODAx.DlUdTQ.cBLukHYTg5R-A35hjiClkOQNA4Q"
-client = discord.Client()
-bot = commands.Bot(command_prefix='!')
+token = ""           
+client = discord.Client()   
+bot = commands.Bot(command_prefix='!')  
 #https://discordapp.com/api/oauth2/authorize?client_id=257405403288174592&permissions=8&scope=bot
 @bot.event
 async def on_ready(): #Print when ready 
-    print("word knower Ready")  
-questionwords = "ARE","are","Are","Ya'll","ya'll","wdym","who", "what", "where", "whom", "whose", "why", "which", "how", "when","Who","WHO","What","WHAT","Where","WHERE","Whom","WHOM","Whose","WHOSE","Why","WHY","Which","WHICH","How","HOW","When","WHEN", "Howdy", "howdy"
+    print("BOT READY")          
+questionwords = "is", "can", "are","ya'll","wdym","who", "what", "where", "whom", "whose", "why", "which", "how", "when", "howdy"
 Greeting = "hello", "hi", "hey", "hola", "yo", "Hello", "Hi", "Hey", "Hola", "Yo"
-@bot.event  
+personal = "i ", " i ", "i'm", "im"
+question = "?", "anyone", "right", " wonder "
+statement = "time","gay","worse","better","would","break","did","save","broke","is","this","in","its","it's","out"
+reaction = "litty", "lit","cool","lol","wow","ha","gg","xd","!"
+#"i " in string_lowered or " i " in string_lowered or "i'm" in string_lowered or "im" in string_lowered:
+@bot.event
 async def on_message(message):
     if message.author == bot.user:
         return
-    if message.content.startswith(questionwords) and "you" in message.content:      
+    string = message.content
+    string_lowered = string.lower()
+    if message.author.id == "297495225847382016":
+        await bot.send_message(message.channel, "Shutup you're dating a freshman")# say hello to a retard
+        return
+    if string_lowered.startswith(questionwords) or string_lowerd in question and string_lowered in string_lowered:     
         print(message.content + ": question-Conversation")
         await bot.send_message(message.channel, "this is a question and conversation") #question and conversation attacks
         return
-    elif message.content.startswith(questionwords) or "?" in message.content or "anyone" in message.content:
+    elif message.content.startswith(questionwords) or string_lowered in question:
         print(message.content + ": question")   
         await bot.send_message(message.channel, "this is a question") #question attacks
         return
-    elif "personal" in message.content or "I " in message.content or " i " in message.content or " I " in message.content or "I'm" in message.content or "Im" in message.content:
+    elif string_lowered in personal:
          print(message.content + ": personal statement")    
          await bot.send_message(message.channel, "This is a personal statement") # Personal Attacks
-         return 
-    elif "you" in message.content:
-        print(message.content + ": Conversation Statement")
-        await bot.send_message(message.channel, "This is a Converstaion") # talk to user but slightly attack the person
-        return
-    elif "worse" in message.content or "better" in message.content or "would" in message.content or "break" in message.content or "did" in message.content or "save" in message.content or "broke" in message.content or "is" in message.content or "this" in message.content or "in" in message.content or "its" in message.content or "it's" in message.content or "out" in message.content:
+         return
+    elif string_lowered in statement:
         print(message.content + ": Statement")
         await bot.send_message(message.channel, "this is a Statement")# idk think of somthing 
         return
-    elif "litty" in message.content or "lit" in message.content or "Cool" in message.content or "lol" in message.content or "wow" in message.content or "ha" in message.content or "gg" in message.content or "xd" in message.content or "!" in message.content:
+    elif "you" in string_lowered or "ok" in string_lowered:
+        print(message.content + ": Conversation Statement")
+        await bot.send_message(message.channel, "This is a Converstaion") # talk to user but slightly attack the person
+        return
+    elif string_lowerd in reaction:
         print(message.content + ": Reaction")
         await bot.send_message(message.channel, "This is a Reaction")# attack them for thinking its cool to react like that
         return
@@ -43,5 +53,6 @@ async def on_message(message):
         await bot.send_message(message.channel, "This is a Greeting")# say hello to a retard        
         return
     else:
-        print(message.content + " <- Fix this") #did not understand the sentence structure 
-bot.run(token) 
+        print(message.content + " <- Fix this") #did not understand the sentence structure
+    
+bot.run(token)  
